@@ -1,4 +1,4 @@
-# smartrez-data-flight
+# Smartrez Data Flight
 The SmartRez Data modules
 
 1) Service returns flight schedules from smartrez
