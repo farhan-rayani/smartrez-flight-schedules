@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xsd:element name="InfoGroup">
+		<xsd:annotation>
+			<xsd:documentation>Error and information group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ForInfo" minOccurs="0"/>
+				<xsd:element ref="Error" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ForInfo">
+		<xsd:annotation>
+			<xsd:documentation>Information group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Text" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Information text or error text. Example: Free flow text.  Example: Invalid flight number</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute ref="Source" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Identifies the source of this  element. In other words where the content originates from. Not limited to GDS, applicable to direct connect as well. Example: 1A, 1V, or other. </xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute ref="SourceRef" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:attribute name="Source">
+		<xsd:annotation>
+			<xsd:documentation>Identifies the source of this  element. In other words where the content originates from. Not limited to GDS, applicable to direct connect as well. Example: 1A, 1V, or other. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:attribute>
+	<xsd:attribute name="SourceRef">
+		<xsd:annotation>
+			<xsd:documentation>PNR Record Locator associated to Source attribute.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:attribute>
+    <xsd:element name="Text" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Information text or error text. Example: Free flow text.  </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:simpleType name="TimeDurationHoursMinutes">
+		<xsd:annotation>
+			<xsd:documentation>A duration of time specified in hours and minutes (HH:MM) with a maximum value of 99:59.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9][0-9]:[0-5][0-9]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="FlightNumber" type="FlightNumberWithSuffixType">
+		<xsd:annotation>
+			<xsd:documentation>Flight number - an integer value within the range of [0,9999].
+
+Example: 1234</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="FlightNumberType">
+		<xsd:annotation>
+			<xsd:documentation>A flight number. Flight numbers are integer values within the range of [0-9999]. Example: 1234</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="9999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="FlightNumberWithSuffixType">
+		<xsd:annotation>
+			<xsd:documentation>A flight number with optional suffix letter. Flight numbers are integer values within the range of [0,9999]. 
+
+Example: 1234</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="FlightNumberType">
+				<xsd:attribute name="Suffix" use="optional">
+					<xsd:annotation>
+						<xsd:documentation>Flight number alpha qualifier.  
+Values are:
+A
+B
+C
+D
+
+Example: A</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:enumeration value="A"/>
+							<xsd:enumeration value="B"/>
+							<xsd:enumeration value="C"/>
+							<xsd:enumeration value="D"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+<xsd:element name="Error">
+		<xsd:annotation>
+			<xsd:documentation>Error group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Code" minOccurs="0"/>
+				<xsd:element ref="Text" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="ErrorType" type="xsd:string" use="required">
+				<xsd:annotation>
+					<xsd:documentation>Type of error.  Example: Air</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute ref="Source"/>
+			<xsd:attribute ref="SourceRef"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Code" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Error code or equipment type code.  Example: 0104 (error code), 747 (equipment code)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+</xsd:schema>

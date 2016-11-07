@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+
+	<artifactId>smartrez-data-flight-client</artifactId>
+
+	<packaging>jar</packaging>
+	<name>smartrez data service flight client component</name>
+	<url>http://maven.apache.org</url>
+
+	<parent>
+		<groupId>com.flydubai.dataservices</groupId>
+		<artifactId>smartrez-data-flight</artifactId>
+		<version>2.0-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.flydubai.dataservices</groupId>
+			<artifactId>smartrez-data-flight-common</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.flydubai.util</groupId>
+			<artifactId>configurator-client</artifactId>
+		</dependency>
+
+		<!-- jersey client -->
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+		</dependency>
+		
+		<!-- Load Balancer -->
+		<dependency>
+			<groupId>com.flydubai.restclientlib</groupId>
+			<artifactId>ribbon-httpclient</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.flydubai.restclient</groupId>
+			<artifactId>smartrez-restclient</artifactId>
+			<version>1.0.0-RELEASE</version>
+		</dependency>
+
+		<!-- Testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<defaultGoal>install</defaultGoal>
+		<plugins>
+			<!-- compiler plugin configuration -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<fork>true</fork>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
+</project>
